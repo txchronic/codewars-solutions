@@ -1,19 +1,19 @@
-from math import log
-
-
-dct = {
-    "RR": "R", "GG": "G", "BB": "B",
-    "BG": "R", "RB": "G", "RG": "B",
-    "GB": "R", "BR": "G", "GR": "B"
-}
-
-
 def triangle(row: str) -> str:
-    n = len(row)
+    color_map = {
+        "RR": "R", "GG": "G", "BB": "B",
+        "BG": "R", "RB": "G", "RG": "B",
+        "GB": "R", "BR": "G", "GR": "B"
+    }
 
-    if n == 1:
+    length = len(row)
+
+    if length == 1:
         return row
     else:
-        d = n - 3 ** int(log(n - 1, 3))
+        third = 1
+        while third <= length - 1:
+            third *= 3
+        third //= 3
+        d = length - third
 
-        return dct[triangle(row[:d]) + triangle(row[-d:])]
+        return color_map[triangle(row[:d]) + triangle(row[-d:])]

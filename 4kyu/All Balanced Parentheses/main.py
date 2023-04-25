@@ -1,16 +1,14 @@
 def balanced_parens(n: int) -> list:
-    def generator(count: int, step = None) -> str:
-        step = count if step is None else step
-
-        if count == step == 0:
+    def generator(open_count: int, close_count: int) -> str:
+        if open_count == close_count == 0:
             yield ""
         else:
-            if count > 0:
-                for j in generator(count - 1, step):
+            if open_count > 0:
+                for j in generator(open_count - 1, close_count):
                     yield "(" + j
 
-            if step > count:
-                for j in generator(count, step - 1):
+            if close_count > open_count:
+                for j in generator(open_count, close_count - 1):
                     yield ")" + j
-    
-    return list(generator(n))
+
+    return list(generator(n, n))
